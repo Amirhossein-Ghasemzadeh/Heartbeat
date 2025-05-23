@@ -17,7 +17,7 @@ public class AuthController : ControllerBase
     public IActionResult Signup(RegisterDto dto)
     {
         if (_context.Users.Any(u => u.SerialNumber == dto.SerialNumber))
-            return BadRequest("این شماره سریال قبلا ثبت شده است!");
+            return BadRequest("This serial number is already registered.");
 
         var user = new User
         {
@@ -31,7 +31,7 @@ public class AuthController : ControllerBase
 
         return Ok(new
         {
-            message = "کاربر با موفقیت ثبت نام شد",
+            message = "User registered successfully",
             user.SerialNumber
         });
     }
@@ -40,7 +40,7 @@ public class AuthController : ControllerBase
     public IActionResult Login(LoginDto dto)
     {
         var user = _context.Users.FirstOrDefault(u => u.Username == dto.Username && u.Password == dto.Password);
-        if (user == null) return Unauthorized("نام کاربری یا رمز عبور اشتباه اسنت!");
+        if (user == null) return Unauthorized("Invalid username or password!");
 
         return Ok(new { message = "Login successful", user.SerialNumber  });
     }

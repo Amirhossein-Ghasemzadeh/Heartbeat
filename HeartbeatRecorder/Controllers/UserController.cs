@@ -47,11 +47,11 @@ public class UserController : ControllerBase
                     .Select(h => new { h.Value, h.Timestamp })
                     .ToList()
             })
-            .ToList();
+            .FirstOrDefault();
 
-        if (user.Count == 0)
+        if (user == null)
         {
-            return BadRequest("!کاربری با این شماره سریال وجود ندارد");
+            return BadRequest("No user found with this serial number.");
         }
 
         return Ok(user);
@@ -61,11 +61,11 @@ public class UserController : ControllerBase
     public IActionResult DeleteUser(LoginDto dto)
     {
         var user = _context.Users.FirstOrDefault(u => u.Username == dto.Username && u.Password == dto.Password);
-        if (user == null) return Unauthorized("نام کاربری یا رمز عبور اشتباه است!");
+        if (user == null) return Unauthorized("Incorrect username or password!");
 
         _context.Users.Remove(user);
         _context.SaveChanges();
 
-        return Ok(new { message = "کاربر با موفقیت حذف شد" });
+        return Ok(new { message = "User deleted successfully." });
     }
 }
