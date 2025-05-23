@@ -1,5 +1,5 @@
-using Microsoft.EntityFrameworkCore;
 using HeartbeatRecorder.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,13 +15,9 @@ builder.Services.AddDbContext<DataContext>(options => options.UseSqlite(builder.
 
 var app = builder.Build();
 
+app.UseSwagger();
+app.UseSwaggerUI();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
 
 app.UseHttpsRedirection();
 

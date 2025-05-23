@@ -17,7 +17,7 @@ public class AuthController : ControllerBase
     public IActionResult Signup(RegisterDto dto)
     {
         if (_context.Users.Any(u => u.SerialNumber == dto.SerialNumber))
-            return BadRequest("کاربر قبلا ثبت نام شده است!");
+            return BadRequest("این شماره سریال قبلا ثبت شده است!");
 
         var user = new User
         {
