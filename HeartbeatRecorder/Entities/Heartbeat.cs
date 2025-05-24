@@ -9,7 +9,15 @@ namespace HeartbeatRecorder.Entities
         public required string SerialNumber { get; set; }
         [Required]
         public int Value { get; set; }
-        public DateTime Timestamp { get; set; } = DateTime.UtcNow;
+        public DateTime Timestamp { get; set; } = GetIranTime();
+
+        private static DateTime GetIranTime()
+        {
+            var utcNow = DateTime.UtcNow;
+            var iranTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Iran Standard Time");
+            var iranTime = TimeZoneInfo.ConvertTimeFromUtc(utcNow, iranTimeZone);
+            return iranTime;
+        }
     }
 
 }
