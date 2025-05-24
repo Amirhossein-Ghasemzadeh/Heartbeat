@@ -11,9 +11,9 @@ builder.Services.AddDbContext<DataContext>(options => options.UseSqlite(builder.
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowLocalhost", policy =>
+    options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:5173")  
+        policy.WithOrigins("http://heartbeat.farirdev.ir")
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
@@ -26,7 +26,7 @@ app.UseSwaggerUI();
 
 // app.UseHttpsRedirection();
 
-app.UseCors("AllowLocalhost");
+app.UseCors("AllowFrontend");
 
 app.UseAuthorization();
 
